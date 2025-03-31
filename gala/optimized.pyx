@@ -94,7 +94,7 @@ def flood_fill(im, start, acceptable, limits=None, raveled=False):
         either a 1D array of raveled indices of pixels in im, or a 
         2D ndarray where each row is the coordinates of a pixel.
     """
-    cdef np.ndarray[np.int_t, ndim=2] matches
+    cdef np.ndarray[np.int64_t, ndim=2] matches
     if im.ndim == 3:
         a = np.array(acceptable)
         s = np.array(start)
