@@ -166,11 +166,11 @@ cdef _flood_fill_3d(long[:,:,:] im, long[:] start, long[:] acceptable, long[:,:]
     cdef int starting_size = 5000
     cdef int ndim = im.ndim
     cdef int in_matches, in_acceptable, base_point_ii, p_ii, new_frontier_size, jj
-    cdef np.ndarray[np.int_t, ndim=2] adjacent
-    cdef np.ndarray[np.int_t, ndim=2] matches =      np.zeros([starting_size, ndim], dtype=np.int)
-    cdef np.ndarray[np.int_t, ndim=2] frontier =     np.empty([starting_size, ndim], dtype=np.int)
-    cdef np.ndarray[np.int_t, ndim=2] new_frontier = np.empty([starting_size, ndim], dtype=np.int)
-    cdef np.ndarray[np.int_t, ndim=1] base_point, p
+    cdef np.ndarray[np.int64_t, ndim=2] adjacent
+    cdef np.ndarray[np.int64_t, ndim=2] matches =      np.zeros([starting_size, ndim], dtype=np.int)
+    cdef np.ndarray[np.int64_t, ndim=2] frontier =     np.empty([starting_size, ndim], dtype=np.int)
+    cdef np.ndarray[np.int64_t, ndim=2] new_frontier = np.empty([starting_size, ndim], dtype=np.int)
+    cdef np.ndarray[np.int64_t, ndim=1] base_point, p
 
     for jj in range(ndim):
         frontier[0,jj] = start[jj]
@@ -204,18 +204,18 @@ cdef _flood_fill_3d(long[:,:,:] im, long[:] start, long[:] acceptable, long[:,:]
     return matches[0:matches_size, :]
 
  
-cdef np.ndarray[np.int_t, ndim=2] _expand_2darray(long[:,:] a):
+cdef np.ndarray[np.int64_t, ndim=2] _expand_2darray(long[:,:] a):
     """ Double the number of rows in a matrix and copy over the existing values
     """
     cdef int ii,jj
-    cdef np.ndarray[np.int_t, ndim=2] expanded = np.zeros([a.shape[0] * 2, a.shape[1]], dtype=np.int)
+    cdef np.ndarray[np.int64_t, ndim=2] expanded = np.zeros([a.shape[0] * 2, a.shape[1]], dtype=np.int)
     for ii in range(a.shape[0]):
         for jj in range(a.shape[1]):
             expanded[ii,jj] = a[ii,jj]
     return expanded
 
 
-cdef np.ndarray[np.int_t, ndim=2] _adjacent_points(long[:] point, long[:,:] limits):
+cdef np.ndarray[np.int64_t, ndim=2] _adjacent_points(long[:] point, long[:,:] limits):
     """ Get all adjacent points to point that fall within limits. 
         
     Parameters
@@ -239,7 +239,7 @@ cdef np.ndarray[np.int_t, ndim=2] _adjacent_points(long[:] point, long[:,:] limi
     cdef int v = -1
     cdef int d, s, new,ii
     cdef int[2] shifts
-    cdef np.ndarray[np.int_t, ndim=2] adjacent = np.ones([variants, dimensions], dtype=np.int)*-1
+    cdef np.ndarray[np.int64_t, ndim=2] adjacent = np.ones([variants, dimensions], dtype=np.int)*-1
     shifts[0] = -1
     shifts[1] = 1
     for d in range(dimensions):
