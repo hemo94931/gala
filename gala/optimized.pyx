@@ -204,7 +204,7 @@ cdef _flood_fill_3d(long[:,:,:] im, long[:] start, long[:] acceptable, long[:,:]
     return matches[0:matches_size, :]
 
  
-cdef np.ndarray[np.int64_t, ndim=2] _expand_2darray(long[:,:] a):
+cdef np.ndarray[np.int_t, ndim=2] _expand_2darray(long[:, ::1] a):
     """ Double the number of rows in a matrix and copy over the existing values
     """
     cdef int ii,jj
