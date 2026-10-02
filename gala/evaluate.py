@@ -236,7 +236,7 @@ def contingency_table(seg, gt, *, ignore_seg=(), ignore_gt=(), norm=True):
     """
     segr = seg.ravel()
     gtr = gt.ravel()
-    ignored = np.zeros(segr.shape, np.bool)
+    ignored = np.zeros(segr.shape, np.bool_)
     data = np.ones(gtr.shape)
     for i in ignore_seg:
         ignored[segr == i] = True
